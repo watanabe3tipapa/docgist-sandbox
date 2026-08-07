@@ -1,0 +1,28 @@
+---
+import { adocToHtml } from "../lib/asciidoc";
+
+interface Props {
+  source: string;
+  title?: string;
+  label?: { source?: string; output?: string };
+}
+
+const { source, title, label } = Astro.props;
+const output = await adocToHtml(source);
+const srcLabel = label?.source ?? "Source (.adoc)";
+const outLabel = label?.output ?? "Rendered HTML";
+---
+
+<div class="adoc-demo">
+  {title && <h3>{title}</h3>}
+  <div class="demo-body">
+    <details class="demo-pane" open>
+      <summary>{srcLabel}</summary>
+      <pre class="demo-src"><code>{source}</code></pre>
+    </details>
+    <details class="demo-pane" open>
+      <summary>{outLabel}</summary>
+      <div class="demo-out" set:html={output}></div>
+    </details>
+  </div>
+</div>

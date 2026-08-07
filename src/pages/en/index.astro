@@ -1,0 +1,114 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/global.css";
+---
+
+<Layout
+  locale="en"
+  lang="en"
+  title="DocGist — AsciiDoc, the document format that works best with AI"
+  description="AsciiDoc is a document format with high affinity for AI agents. DocGist explains why and how to use it."
+>
+  <section class="hero">
+    <div class="wrap">
+      <span class="kicker">AsciiDoc for humans & AI</span>
+      <h1>
+        The document format<br />
+        that <em class="hl">gets along</em><br />
+        with AI agents
+      </h1>
+      <p class="lead">
+        AsciiDoc (.adoc) is an explicit, structured format that stays stable even
+        when AI writes it. Learn it here — with a live playground.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-accent" href="/en/what-is-asciidoc">Learn AsciiDoc</a>
+        <a class="btn btn-paper" href="/en/playground">Try the Playground</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">Structure at a glance</h2>
+    <p style="max-width: 44rem">
+      Unlike space-sensitive Markdown, AsciiDoc makes <strong>headings,
+      admonitions and tables explicit syntax</strong>. AI output stays stable
+      through conversion — friendly to both humans and machines.
+    </p>
+    <pre class="code"><span class="c">= A doc easy for AI to write</span>
+
+<span class="s">Because structure is explicit, AI reliably produces valid AsciiDoc.</span>
+
+<span class="c">[NOTE]</span>
+AI agents output into .adoc structure smoothly.
+
+<span class="c">== Explicit headings</span>
+
+<span class="c">[source,bash]</span>
+$ asciidoctor my-doc.adoc
+<span class="k">DONE</span></pre>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">Why AsciiDoc wins with AI</h2>
+    <div class="grid">
+      <div class="card card-a">
+        <div class="icon">🗼</div>
+        <h3>Explicit structure</h3>
+        <p>Headings, tables and notes are part of the syntax — no space-wrapping ambiguity.</p>
+      </div>
+      <div class="card card-b">
+        <div class="icon">⚙️</div>
+        <h3>Deterministic conversion</h3>
+        <p>asciidoctor converts to HTML deterministically, so AI output → build → verify can be automated.</p>
+      </div>
+      <div class="card card-c">
+        <div class="icon">📦</div>
+        <h3>One source, many outputs</h3>
+        <p>A single .adoc renders to HTML, PDF and slides (Reveal.js) consistently.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">AsciiDoc vs Markdown</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Aspect</th>
+          <th>AsciiDoc</th>
+          <th>Typical Markdown pitfalls</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Structure</td>
+          <td class="yes">Explicit syntax</td>
+          <td>Space/indent ambiguity</td>
+        </tr>
+        <tr>
+          <td>Determinism</td>
+          <td class="yes">Reproducible output</td>
+          <td>Results vary across dialects</td>
+        </tr>
+        <tr>
+          <td>Outputs</td>
+          <td class="yes">HTML / PDF / slides</td>
+          <td class="no">Depends on extensions</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">Get started</h2>
+    <ol class="steps">
+      <li>Open the Playground and write .adoc on the left.</li>
+      <li>Watch the rendered HTML update in real time on the right.</li>
+      <li>Check the grammar in "What is AsciiDoc".</li>
+    </ol>
+    <p style="margin-top: 2rem">
+      <a class="btn btn-paper" href="/en/playground">Open the Playground →</a>
+    </p>
+  </section>
+</Layout>

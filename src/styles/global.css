@@ -1,0 +1,474 @@
+:root {
+  --bg: #f5f1e6;
+  --ink: #1a1a1a;
+  --paper: #ffffff;
+  --accent: #ff5a3c;
+  --accent-2: #3b82f6;
+  --gold: #f7c948;
+  --green: #2fbf71;
+  --shadow: 6px 6px 0 #1a1a1a;
+
+  --font-sans: "Open Sans", "Hiragino Sans", "Noto Sans JP", system-ui,
+    sans-serif;
+  --font-serif: "Noto Serif JP", Georgia, serif;
+  --font-mono: "Droid Sans Mono", ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------- Nav ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.5rem;
+  background: var(--ink);
+  color: #fff;
+  border-bottom: 4px solid var(--accent);
+}
+
+.topbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 900;
+  font-size: 1.15rem;
+  text-decoration: none;
+  color: #fff;
+}
+
+.topbar nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.topbar nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.topbar nav a:hover {
+  color: var(--gold);
+}
+
+.lang-switch {
+  display: inline-flex;
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+}
+
+.lang-switch:hover {
+  background: var(--gold);
+}
+
+/* ---------- Layout ---------- */
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.section {
+  margin-top: 4rem;
+}
+
+.section-title {
+  display: inline-block;
+  font-size: 1.6rem;
+  font-weight: 900;
+  padding: 0.25rem 0.9rem;
+  background: var(--accent);
+  color: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  margin: 0 0 1.6rem;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  padding: 3rem 0 1rem;
+  text-align: center;
+}
+
+.hero .kicker {
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 2px solid var(--ink);
+  background: var(--gold);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  margin-bottom: 1.2rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0 0 1rem;
+}
+
+.hero h1 .hl {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 0 0.3rem;
+  transform: rotate(-1.5deg);
+}
+
+.hero p.lead {
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  max-width: 40rem;
+  margin: 0 auto 2rem;
+  font-weight: 600;
+}
+
+.cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 1rem;
+  padding: 0.8rem 1.6rem;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* ---------- Feature cards ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.6rem;
+}
+
+.card {
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 1.4rem;
+}
+
+.card .icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.card h3 {
+  margin: 0 0 0.5rem;
+  font-weight: 800;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.card-a {
+  border-color: var(--accent);
+}
+
+.card-b {
+  border-color: var(--accent-2);
+}
+
+.card-c {
+  border-color: var(--green);
+}
+
+/* ---------- Code block ---------- */
+.code {
+  background: #1a1a1a;
+  color: #e6e6e6;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 1.1rem 1.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.code .c {
+  color: #ff7b72;
+}
+
+.code .k {
+  color: #79c0ff;
+}
+
+.code .s {
+  color: #a5d6ff;
+}
+
+/* ---------- Steps ---------- */
+.steps {
+  list-style: none;
+  counter-reset: step;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.steps li {
+  counter-increment: step;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 1rem 1.2rem;
+}
+
+.steps li::before {
+  content: counter(step);
+  flex: 0 0 auto;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 900;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* ---------- Comparison table ---------- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.table th,
+.table td {
+  border: 2px solid var(--ink);
+  padding: 0.7rem 1rem;
+  text-align: left;
+}
+
+.table thead th {
+  background: var(--ink);
+  color: #fff;
+}
+
+.table .yes {
+  color: var(--green);
+  font-weight: 800;
+}
+
+.table .no {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+/* ---------- Content pages ---------- */
+.page-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  display: inline-block;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.2rem 0.9rem;
+  box-shadow: 6px 6px 0 var(--accent);
+  margin: 0 0 1rem;
+}
+
+.page-lead {
+  font-size: 1.1rem;
+  font-weight: 600;
+  max-width: 46rem;
+}
+
+/* ---------- AsciiDoc demo ---------- */
+.adoc-demo {
+  margin: 1.5rem 0;
+}
+
+.adoc-demo h3 {
+  font-weight: 800;
+  margin: 0 0 0.8rem;
+}
+
+.demo-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+@media (max-width: 760px) {
+  .demo-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.demo-pane {
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.demo-pane summary {
+  cursor: pointer;
+  font-weight: 800;
+  padding: 0.55rem 0.9rem;
+  background: var(--ink);
+  color: #fff;
+  border-bottom: 3px solid var(--ink);
+}
+
+.demo-pane summary:hover {
+  background: #333;
+}
+
+.demo-src {
+  margin: 0;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  overflow-x: auto;
+  background: #1a1a1a;
+  color: #e6e6e6;
+}
+
+.demo-out {
+  padding: 1rem;
+  font-size: 0.95rem;
+}
+
+/* Rendered AsciiDoc output styling (shared for demo + playground) */
+.demo-out .title,
+.pane-output .title {
+  font-weight: 800;
+}
+
+.demo-out .admonitionblock,
+.pane-output .admonitionblock {
+  border-left: 5px solid var(--accent);
+  background: #fff7ed;
+  padding: 0.6rem 1rem;
+  margin: 0.8rem 0;
+}
+
+.demo-out .admonitionblock .icon,
+.pane-output .admonitionblock .icon {
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.demo-out .admonitionblock.warning,
+.pane-output .admonitionblock.warning {
+  border-left-color: var(--gold);
+  background: #fffbe6;
+}
+
+.demo-out table,
+.pane-output table {
+  border-collapse: collapse;
+  margin: 0.8rem 0;
+}
+
+.demo-out table th,
+.demo-out table td,
+.pane-output table th,
+.pane-output table td {
+  border: 2px solid var(--ink);
+  padding: 0.4rem 0.8rem;
+}
+
+.demo-out table th,
+.pane-output table th {
+  background: var(--ink);
+  color: #fff;
+}
+
+.demo-out pre,
+.pane-output pre {
+  background: #1a1a1a;
+  color: #e6e6e6;
+  padding: 0.8rem;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.demo-out blockquote,
+.pane-output blockquote {
+  border-left: 5px solid var(--accent-2);
+  margin: 0.8rem 0;
+  padding: 0.2rem 1rem;
+  color: #444;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 4px solid var(--ink);
+  background: var(--ink);
+  color: #fff;
+  text-align: center;
+  padding: 1.6rem;
+}
+
+.site-footer a {
+  color: var(--gold);
+}

@@ -1,0 +1,104 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AdocDemo from "../components/AdocDemo.astro";
+import "../styles/global.css";
+
+const labels = { source: "ソース (.adoc)", output: "変換結果 (HTML)" };
+---
+
+<Layout
+  locale="ja"
+  lang="ja"
+  title="AsciiDoc とは — DocGist"
+  description="AsciiDoc の基本文法を見本つきで解説します。生成AIとの親和性が高い理由も。"
+>
+  <div class="wrap">
+    <h1 class="page-title">AsciiDoc とは</h1>
+    <p class="page-lead">
+      AsciiDoc は、人間も AI も読み書きしやすい軽量マークアップ言語です。
+      ここでは主要な文法を「ソース ⇔ 変換結果」の2面で紹介します。
+    </p>
+
+    <section class="section">
+      <h2 class="section-title">見出しと段落</h2>
+      <AdocDemo
+        labels={labels}
+        source={`
+= 文書タイトル（レベル0）
+
+段落はそのまま書きます。 *太字* と _斜体_ を使えます。
+
+== レベル1見出し
+
+=== レベル2見出し
+
+レベル2見出しは「===」で書きます。
+            `.trim()}
+      />
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">アドモニション (注意書き)</h2>
+      <AdocDemo
+        labels={labels}
+        source={`
+[NOTE]
+====
+ここは補足説明です。生成AIは構造を見分けて出力できます。
+====
+
+[WARNING]
+初心者向けの警告を入れます。
+`.trim()}
+      />
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">テーブル</h2>
+      <AdocDemo
+        labels={labels}
+        source={`
+[cols="2,2"]
+|===
+| 形式 | 特徴
+
+| AsciiDoc
+| 構造が明示的
+
+| Markdown
+| 余白依存で曖昧
+|===
+`.trim()}
+      />
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">ソースコード</h2>
+      <AdocDemo
+        labels={labels}
+        source={`
+[source,bash]
+----
+$ asciidoctor my-doc.adoc
+----
+`.trim()}
+      />
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">数式 (stem)</h2>
+      <AdocDemo
+        labels={labels}
+        source={`
+STEM: e^{i\pi} + 1 = 0
+`.trim()}
+      />
+    </section>
+
+    <section class="section">
+      <p>
+        <a class="btn btn-paper" href="/playground">Playground で実際に試す →</a>
+      </p>
+    </section>
+  </div>
+</Layout>

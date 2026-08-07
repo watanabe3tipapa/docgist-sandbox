@@ -1,0 +1,113 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+---
+
+<Layout
+  locale="ja"
+  lang="ja"
+  title="DocGist — 生成AIに最適なドキュメント形式 AsciiDoc"
+  description="AsciiDoc は生成AIとの親和性が高い文書形式です。DocGist がその理由と活用法を解説します。"
+>
+  <section class="hero">
+    <div class="wrap">
+      <span class="kicker">AsciiDoc for humans & AI</span>
+      <h1>
+        生成AI と<br />
+        いちばん<em class="hl">相性のいい</em><br />
+        文書形式
+      </h1>
+      <p class="lead">
+        AsciiDoc(.adoc)は構造が明示的で、AI が書いても安定して出力する文書形式。
+        解説・プレイグラウンド付きで学べます。
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-accent" href="/what-is-asciidoc">AsciiDoc を学ぶ</a>
+        <a class="btn btn-paper" href="/playground">Playground で試す</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">ひと目でわかる構造</h2>
+    <p style="max-width: 44rem">
+      AsciiDoc は余白依存の Markdown と違い、<strong>見出し・アドモニション・テーブルが構文として明示的</strong>です。
+      そのため AI が出力した文章も安定して変換され、人と機械の両方に優しい文書になります。
+    </p>
+    <pre class="code"><span class="c">= AI に書かせやすい文章</span>
+
+<span class="s">AsciiDoc は構造が明示的, AI が書いても安定して変換されます。</span>
+
+<span class="c">[NOTE]</span>
+生成 AI は .adoc の構造構文へ安定して出力できます。
+
+<span class="c">== 見出しも明示的</span>
+
+<span class="c">[source,bash]</span>
+$ asciidoctor my-doc.adoc
+<span class="k">DONE</span></pre>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">AsciiDoc が AI と相性がいい理由</h2>
+    <div class="grid">
+      <div class="card card-a">
+        <div class="icon">🗼</div>
+        <h3>明示的な構造</h3>
+        <p>見出し・テーブル・NOTE が構文として明確。Markdown の余白依存の曖昧さがありません。</p>
+      </div>
+      <div class="card card-b">
+        <div class="icon">⚙️</div>
+        <h3>決定的変換</h3>
+        <p>asciidoctor が決定的に HTML へ変換。AI 出力 → ビルド → 検証の自動化ができます。</p>
+      </div>
+      <div class="card card-c">
+        <div class="icon">📦</div>
+        <h3>1 ソース多展開</h3>
+        <p>.adoc 1 つから HTML / PDF / スライド(Reveal.js)を一律に生成できます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">Markdown との比較</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>観点</th>
+          <th>AsciiDoc</th>
+          <th>Markdown の典型的な課題</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>構造表現</td>
+          <td class="yes">構文で明示</td>
+          <td>余白・記号の依存で曖昧</td>
+        </tr>
+        <tr>
+          <td>変換の決定性</td>
+          <td class="yes">決定論的で再現性あり</td>
+          <td>方言 (dialects) で結果が変わる</td>
+        </tr>
+        <tr>
+          <td>展開先</td>
+          <td class="yes">HTML / PDF / スライド</td>
+          <td class="no">拡張に依存</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">はじめかた</h2>
+    <ol class="steps">
+      <li>「Playground」を開き、左のエディタに .adoc を書きます。</li>
+      <li>右のプレビューに HTML 変換結果がリアルタイムに表示されます。</li>
+      <li>「AsciiDoc を学ぶ」で書式の文法を確認します。</li>
+    </ol>
+    <p style="margin-top: 2rem">
+      <a class="btn btn-paper" href="/playground">Playground を開く →</a>
+    </p>
+  </section>
+</Layout>

@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Playground from "../components/Playground.astro";
+import "../styles/global.css";
+---
+
+<Layout
+  locale="ja"
+  lang="ja"
+  title="Playground — DocGist"
+  description="Monaco エディタで AsciiDoc を書き、Asciidoctor でリアルタイムに HTML 変換を試せるプレイグラウンド。"
+>
+  <div class="wrap">
+    <h1 class="page-title">Playground</h1>
+    <Playground
+      heading="AsciiDoc を書いて、すぐに変換しよう"
+      lead="左に .adoc を書くと右へ即時に HTML 変換されます。入力はブラウザに自動保存。AI の下書きを貼り付けて検証するのにもどうぞ。"
+      btnCopy="コピー"
+      btnClear="クリア"
+      copiedLabel="コピーしました"
+      sourceLabel="AsciiDoc ソース"
+      outputLabel="変換結果"
+    />
+    <section class="section">
+      <p>
+        <a class="btn btn-paper" href="/what-is-asciidoc">書式をもっと学ぶ →</a>
+      </p>
+    </section>
+  </div>
+</Layout>

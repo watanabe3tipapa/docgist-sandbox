@@ -1,3 +1,14 @@
+# Node
+node_modules/
+
+# Astro / build output
+dist
+.astro
+
+# OS
+.DS_Store
+
+# IDE
 .project
 .settings
 *.iml

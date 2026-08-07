@@ -1,0 +1,30 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Playground from "../../components/Playground.astro";
+import "../../styles/global.css";
+---
+
+<Layout
+  locale="en"
+  lang="en"
+  title="Playground — DocGist"
+  description="Write AsciiDoc in a Monaco editor and convert it to HTML in real time with Asciidoctor."
+>
+  <div class="wrap">
+    <h1 class="page-title">Playground</h1>
+    <Playground
+      heading="Write AsciiDoc, get HTML instantly"
+      lead="Type .adoc on the left and see it render to HTML on the right. Input is auto-saved in your browser — great for validating an AI draft."
+      btnCopy="Copy"
+      btnClear="Clear"
+      copiedLabel="Copied!"
+      sourceLabel="AsciiDoc source"
+      outputLabel="Rendered output"
+    />
+    <section class="section">
+      <p>
+        <a class="btn btn-paper" href="/en/what-is-asciidoc">Learn the syntax →</a>
+      </p>
+    </section>
+  </div>
+</Layout>

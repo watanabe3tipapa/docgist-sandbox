@@ -1,0 +1,148 @@
+---
+interface Props {
+  heading: string;
+  lead: string;
+  btnCopy: string;
+  btnClear: string;
+  copiedLabel: string;
+  sourceLabel: string;
+  outputLabel: string;
+  errorLabel?: string;
+}
+const {
+  heading,
+  lead,
+  btnCopy,
+  btnClear,
+  copiedLabel,
+  sourceLabel,
+  outputLabel,
+} = Astro.props;
+const uid = "pg";
+---
+
+<section class="playground">
+  <header class="playground-head">
+    <div>
+      <h2 class="playground-title">{heading}</h2>
+      <p class="playground-lead">{lead}</p>
+    </div>
+    <div class="playground-actions">
+      <button id={`${uid}-copy`} class="btn btn-paper" data-copied-label={copiedLabel}>{btnCopy}</button>
+      <button id={`${uid}-clear`} class="btn btn-accent">{btnClear}</button>
+    </div>
+  </header>
+
+  <div class="playground-panes">
+    <div class="playground-pane">
+      <div class="pane-label">{sourceLabel}</div>
+      <div id={`${uid}-editor`} class="pane-editor"></div>
+    </div>
+    <div class="playground-pane">
+      <div class="pane-label">{outputLabel}</div>
+      <div id={`${uid}-output`} class="pane-output"></div>
+      <div id={`${uid}-error`} class="pane-error" role="alert"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { mountPlayground } from "../scripts/playground";
+
+  mountPlayground({
+    editor: `${uid}-editor`,
+    output: `${uid}-output`,
+    error: `${uid}-error`,
+    copyBtn: `${uid}-copy`,
+    clearBtn: `${uid}-clear`,
+  });
+</script>
+
+<style>
+  .playground {
+    margin-top: 2rem;
+  }
+
+  .playground-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .playground-title {
+    margin: 0 0 0.5rem;
+    font-weight: 900;
+    font-size: 1.6rem;
+  }
+
+  .playground-lead {
+    margin: 0;
+    max-width: 40rem;
+  }
+
+  .playground-actions {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .btn-primary {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .playground-panes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .playground-panes {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .playground-pane {
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+  }
+
+  .pane-label {
+    font-weight: 800;
+    padding: 0.45rem 0.8rem;
+    background: var(--ink);
+    color: #fff;
+    border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--accent);
+    margin-bottom: 0.4rem;
+    align-self: flex-start;
+  }
+
+  .pane-editor {
+    flex: 1;
+    min-height: 460px;
+    border: 3px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+
+  .pane-output {
+    flex: 1;
+    min-height: 460px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+    padding: 1rem;
+    overflow-y: auto;
+    font-size: 0.95rem;
+  }
+
+  .pane-error {
+    color: var(--accent);
+    font-weight: 700;
+    margin-top: 0.5rem;
+  }
+</style>

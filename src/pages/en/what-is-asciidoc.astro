@@ -1,0 +1,105 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import AdocDemo from "../../components/AdocDemo.astro";
+import "../../styles/global.css";
+
+const labels = { source: "Source (.adoc)", output: "Rendered HTML" };
+---
+
+<Layout
+  locale="en"
+  lang="en"
+  title="What is AsciiDoc — DocGist"
+  description="Core AsciiDoc syntax explained with live examples, and why it is ideal for AI."
+>
+  <div class="wrap">
+    <h1 class="page-title">What is AsciiDoc</h1>
+    <p class="page-lead">
+      AsciiDoc is a lightweight markup language that is easy for both humans and
+      AI to read and write. Here are its core constructs, shown side by side:
+      source on the left, rendered output on the right.
+    </p>
+
+    <section class="section">
+      <h2 class="section-title">Headings & paragraphs</h2>
+      <AdocDemo
+        labels={labels}
+        source={`
+= Document title (level 0)
+
+A plain paragraph. Use *bold* and _italic_ inline.
+
+== Level 1 heading
+
+=== Level 2 heading
+
+Level 2 headings use "===".
+            `.trim()}
+      />
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Admonitions</h2>
+      <AdocDemo
+        labels={labels}
+        source={`
+[NOTE]
+====
+A supplementary note. AI agents pick these structures out reliably.
+====
+
+[WARNING]
+A warning for newcomers.
+`.trim()}
+      />
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Tables</h2>
+      <AdocDemo
+        labels={labels}
+        source={`
+[cols="2,2"]
+|===
+| Format | Characteristic
+
+| AsciiDoc
+| Explicit structure
+
+| Markdown
+| Space-sensitive, ambiguous
+|===
+`.trim()}
+      />
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Source code</h2>
+      <AdocDemo
+        labels={labels}
+        source={`
+[source,bash]
+----
+$ asciidoctor my-doc.adoc
+----
+`.trim()}
+      />
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Math (stem)</h2>
+      <AdocDemo
+        labels={labels}
+        source={`
+STEM: e^{i\\pi} + 1 = 0
+`.trim()}
+      />
+    </section>
+
+    <section class="section">
+      <p>
+        <a class="btn btn-paper" href="/en/playground">Try it in the Playground →</a>
+      </p>
+    </section>
+  </div>
+</Layout>
