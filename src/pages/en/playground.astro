@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Playground from "../../components/Playground.astro";
+import { link } from "../../lib/link";
 import "../../styles/global.css";
 ---
 
@@ -23,7 +24,7 @@ import "../../styles/global.css";
     />
     <section class="section">
       <p>
-        <a class="btn btn-paper" href="/en/what-is-asciidoc">Learn the syntax →</a>
+        <a class="btn btn-paper" href={link("/en/what-is-asciidoc")}>Learn the syntax →</a>
       </p>
     </section>
   </div>

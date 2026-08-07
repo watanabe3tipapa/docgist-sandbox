@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { link } from "../../lib/link";
 import "../../styles/global.css";
 ---
 
@@ -22,8 +23,8 @@ import "../../styles/global.css";
         when AI writes it. Learn it here — with a live playground.
       </p>
       <div class="cta-row">
-        <a class="btn btn-accent" href="/en/what-is-asciidoc">Learn AsciiDoc</a>
-        <a class="btn btn-paper" href="/en/playground">Try the Playground</a>
+        <a class="btn btn-accent" href={link("/en/what-is-asciidoc")}>Learn AsciiDoc</a>
+        <a class="btn btn-paper" href={link("/en/playground")}>Try the Playground</a>
       </div>
     </div>
   </section>
@@ -108,7 +109,7 @@ $ asciidoctor my-doc.adoc
       <li>Check the grammar in "What is AsciiDoc".</li>
     </ol>
     <p style="margin-top: 2rem">
-      <a class="btn btn-paper" href="/en/playground">Open the Playground →</a>
+      <a class="btn btn-paper" href={link("/en/playground")}>Open the Playground →</a>
     </p>
   </section>
 </Layout>

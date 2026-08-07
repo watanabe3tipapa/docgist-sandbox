@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { link } from "../lib/link";
 import "../styles/global.css";
 ---
 
@@ -22,8 +23,8 @@ import "../styles/global.css";
         解説・プレイグラウンド付きで学べます。
       </p>
       <div class="cta-row">
-        <a class="btn btn-accent" href="/what-is-asciidoc">AsciiDoc を学ぶ</a>
-        <a class="btn btn-paper" href="/playground">Playground で試す</a>
+        <a class="btn btn-accent" href={link("/what-is-asciidoc")}>AsciiDoc を学ぶ</a>
+        <a class="btn btn-paper" href={link("/playground")}>Playground で試す</a>
       </div>
     </div>
   </section>
@@ -107,7 +108,7 @@ $ asciidoctor my-doc.adoc
       <li>「AsciiDoc を学ぶ」で書式の文法を確認します。</li>
     </ol>
     <p style="margin-top: 2rem">
-      <a class="btn btn-paper" href="/playground">Playground を開く →</a>
+      <a class="btn btn-paper" href={link("/playground")}>Playground を開く →</a>
     </p>
   </section>
 </Layout>

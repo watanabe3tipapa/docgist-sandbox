@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import AdocDemo from "../components/AdocDemo.astro";
+import { link } from "../lib/link";
 import "../styles/global.css";
 
 const labels = { source: "ソース (.adoc)", output: "変換結果 (HTML)" };
@@ -97,7 +98,7 @@ STEM: e^{i\pi} + 1 = 0
 
     <section class="section">
       <p>
-        <a class="btn btn-paper" href="/playground">Playground で実際に試す →</a>
+        <a class="btn btn-paper" href={link("/playground")}>Playground で実際に試す →</a>
       </p>
     </section>
   </div>

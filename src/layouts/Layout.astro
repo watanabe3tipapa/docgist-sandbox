@@ -1,4 +1,6 @@
 ---
+import { link } from "../lib/link";
+
 interface Props {
   title: string;
   description: string;
@@ -8,19 +10,16 @@ interface Props {
 
 const { title, description, lang = "ja", locale = "ja" } = Astro.props;
 
-const otherLocale = locale === "ja" ? "en" : "ja";
-const otherHref = locale === "ja" ? "/en" : "/";
+const otherHref = locale === "ja" ? link("/en") : link("/");
 
-const nav = {
-  rootHref: locale === "ja" ? "/" : "/en",
-  whatIsHref: locale === "ja" ? "/what-is-asciidoc" : "/en/what-is-asciidoc",
-  playgroundHref: locale === "ja" ? "/playground" : "/en/playground",
-};
+const nav = link;
 const data = locale === "ja" ? {
+  rootHref: link("/"),
   whatIs: "AsciiDoc とは",
   playground: "Playground",
   switchLabel: "EN",
 } : {
+  rootHref: link("/en"),
   whatIs: "What is AsciiDoc",
   playground: "Playground",
   switchLabel: "日本語",
@@ -34,12 +33,12 @@ const data = locale === "ja" ? {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href={link("/favicon.ico")} />
     <title>{title}</title>
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href={nav.rootHref}>
+      <a class="brand" href={data.rootHref}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <rect x="4" y="4" width="16" height="16" fill="var(--accent)" stroke="#000" stroke-width="2" />
           <path d="M8 10h8M8 14h5" stroke="#000" stroke-width="2" stroke-linecap="round" />
@@ -47,8 +46,8 @@ const data = locale === "ja" ? {
         DocGist
       </a>
       <nav>
-        <a href={nav.whatIsHref}>{data.whatIs}</a>
-        <a href={nav.playgroundHref}>{data.playground}</a>
+        <a href={nav("/what-is-asciidoc")}>{data.whatIs}</a>
+        <a href={nav("/playground")}>{data.playground}</a>
         <a class="lang-switch" href={otherHref}>{data.switchLabel}</a>
       </nav>
     </header>
