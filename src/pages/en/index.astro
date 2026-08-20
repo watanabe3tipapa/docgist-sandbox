@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import Playground from "../../components/Playground.astro";
 import { link } from "../../lib/link";
 import "../../styles/global.css";
 ---
@@ -30,6 +31,46 @@ import "../../styles/global.css";
   </section>
 
   <section class="wrap section">
+    <h2 class="section-title">What is .adoc?</h2>
+    <div class="def">
+      <p>
+        <span class="ext">.adoc</span>
+        is the file extension of <strong>AsciiDoc</strong>, a
+        <strong>lightweight markup language</strong> that expresses document
+        structure as plain text. Syntax such as <code>= heading</code>,
+        <code>[NOTE]</code> and <code>|===</code> lets you write headings,
+        admonitions, tables and code blocks directly in a text file.
+      </p>
+      <p>
+        The <code>.adoc</code> extension simply means "an AsciiDoc document".
+        Because it is plain text, it opens in any editor and fits naturally into
+        Git-based diffing and version control.
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="icon">📝</div>
+        <h3>Plain text</h3>
+        <p>No special tools required. Read it anywhere and diff or manage it with Git.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🧱</div>
+        <h3>Explicit structure</h3>
+        <p>Heading levels, tables and notes are unambiguous syntax — no space-wrapping ambiguity.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⚙️</div>
+        <h3>Deterministic output</h3>
+        <p>asciidoctor turns the same input into the same HTML, so AI output can be verified automatically.</p>
+      </div>
+    </div>
+    <p style="margin-top: 1.6rem">
+      <a class="btn btn-paper" href={link("/en/what-is-asciidoc")}>See the grammar in detail →</a>
+    </p>
+  </section>
+
+  <section class="wrap section">
     <h2 class="section-title">Structure at a glance</h2>
     <p style="max-width: 44rem">
       Unlike space-sensitive Markdown, AsciiDoc makes <strong>headings,
@@ -48,6 +89,19 @@ AI agents output into .adoc structure smoothly.
 <span class="c">[source,bash]</span>
 $ asciidoctor my-doc.adoc
 <span class="k">DONE</span></pre>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">Try it in your browser</h2>
+    <Playground
+      heading="Write AsciiDoc, convert instantly"
+      lead="Write .adoc on the left and the HTML renders on the right in real time. Try it here to feel why the structure is explicit."
+      btnCopy="Copy"
+      btnClear="Clear"
+      copiedLabel="Copied!"
+      sourceLabel="AsciiDoc source"
+      outputLabel="Converted output"
+    />
   </section>
 
   <section class="wrap section">

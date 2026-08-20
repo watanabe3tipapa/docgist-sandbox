@@ -1,0 +1,56 @@
+= DocGist
+
+DocGist is a content site that introduces and promotes AsciiDoc (.adoc).
+It focuses on the affinity between AsciiDoc and AI agents, explaining why the
+explicit structure of AsciiDoc is well suited to working alongside AI.
+
+.README (Japanese): https://github.com/asciidoctor/docgist-sandbox/blob/main/README.adoc[README.adoc]
+
+== Overview
+
+* Landing page (LP), tutorials and a playground
+* Syntax walkthrough (admonitions, tables, include, and more)
+* A playground with a Monaco editor that converts .adoc to HTML in real time via Asciidoctor
+* Bilingual support: Japanese (ja) and English (en)
+
+== Tech stack
+
+* SSG: https://astro.build[Astro] (Node only)
+* .adoc conversion: https://github.com/asciidoctor/asciidoctor.js[Asciidoctor.js] (npm `asciidoctor`)
+* Editor: https://microsoft.github.io/monaco-editor/[Monaco Editor]
+* Design: Neo Brutalism (plain CSS / CSS variables, no framework)
+* i18n: Astro i18n routing
+* Hosting: GitHub Actions → GitHub Pages
+
+== Pages
+
+* `/`: LP (Japanese)
+* `/en`: LP (English)
+* `/what-is-asciidoc`: AsciiDoc explanation
+* `/playground`: live conversion playground (left: editor / right: output)
+
+== Local development
+
+Requires Node.js 22+.
+
+[source,shell]
+npm install
+npm run dev
+
+Build and preview:
+
+[source,shell]
+npm run build
+npm run preview
+
+== Deployment
+
+Pushing to the `main` branch triggers GitHub Actions (`.github/workflows/pages.yml`)
+to build and publish to GitHub Pages.
+It is served under the `base: /docgist-sandbox` path, so asset references are
+resolved through `src/lib/link.ts`.
+
+== License
+
+Copyright (C) 2013-2014 Anders Nawroth and the Asciidoctor Project.
+Free use of this software is granted under the terms of the Apache License, Version 2.0.

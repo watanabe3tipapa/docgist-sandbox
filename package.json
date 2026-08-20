@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "asciidoctor": "^4.0.0",
-    "astro": "^5.0.0",
+    "astro": "^7.2.4",
     "monaco-editor": "^0.52.0"
   },
   "engines": {

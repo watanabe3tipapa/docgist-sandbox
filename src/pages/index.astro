@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Playground from "../components/Playground.astro";
 import { link } from "../lib/link";
 import "../styles/global.css";
 ---
@@ -30,6 +31,43 @@ import "../styles/global.css";
   </section>
 
   <section class="wrap section">
+    <h2 class="section-title">.adoc とは?</h2>
+    <div class="def">
+      <p>
+        <span class="ext">.adoc</span>
+        <strong>AsciiDoc</strong> の拡張子で、文書の構造をテキストで明示できる
+        <strong>軽量マークアップ言語</strong>です。`= 見出し`・`[NOTE]`・`|===` のような
+        構文をプレーンテキストに埋め込むだけで、見出し・注意書き・テーブル・コードブロックを表現できます。
+      </p>
+      <p>
+        拡張子が <code>.adoc</code> なのは「AsciiDoc の文書」という意味。ただのテキストなので、
+        どんなエディタでも開け、Git での diff やバージョン管理にも自然に馴染みます。
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="icon">📝</div>
+        <h3>プレーンテキスト</h3>
+        <p>専用ツール不要。メモ帳やブラウザでも読めて、diff・Git 管理がしやすい。</p>
+      </div>
+      <div class="card">
+        <div class="icon">🧱</div>
+        <h3>明示的な構造</h3>
+        <p>見出しレベル・テーブル・NOTE が構文として一意。余白依存の曖昧さがありません。</p>
+      </div>
+      <div class="card">
+        <div class="icon">⚙️</div>
+        <h3>決定的に変換</h3>
+        <p>asciidoctor が同じ入力から同じ HTML を生成。AI 出力の検証を自動化できます。</p>
+      </div>
+    </div>
+    <p style="margin-top: 1.6rem">
+      <a class="btn btn-paper" href={link("/what-is-asciidoc")}>文法を詳しく見る →</a>
+    </p>
+  </section>
+
+  <section class="wrap section">
     <h2 class="section-title">ひと目でわかる構造</h2>
     <p style="max-width: 44rem">
       AsciiDoc は余白依存の Markdown と違い、<strong>見出し・アドモニション・テーブルが構文として明示的</strong>です。
@@ -47,6 +85,19 @@ import "../styles/global.css";
 <span class="c">[source,bash]</span>
 $ asciidoctor my-doc.adoc
 <span class="k">DONE</span></pre>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">ブラウザで試す</h2>
+    <Playground
+      heading="AsciiDoc を書いて、すぐに変換"
+      lead="左に .adoc を書くと右へ即時に HTML 変換されます。ここで試せば、構造が明示的な理由が体感できます。"
+      btnCopy="コピー"
+      btnClear="クリア"
+      copiedLabel="コピーしました"
+      sourceLabel="AsciiDoc ソース"
+      outputLabel="変換結果"
+    />
   </section>
 
   <section class="wrap section">

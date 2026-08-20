@@ -79,17 +79,28 @@ a {
 
 .lang-switch {
   display: inline-flex;
-  background: #fff;
-  color: var(--ink);
-  border: 2px solid var(--ink);
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  color: #fff;
+  border: 2px solid var(--gold);
+  border-radius: 999px;
   text-decoration: none;
   font-weight: 800;
   font-size: 0.8rem;
-  padding: 0.2rem 0.6rem;
+  line-height: 1;
+  padding: 0.35rem 0.75rem;
+  transition: background 0.12s ease, color 0.12s ease, transform 0.08s ease;
+}
+
+.lang-switch svg {
+  flex: 0 0 auto;
 }
 
 .lang-switch:hover {
   background: var(--gold);
+  color: var(--ink);
+  transform: translateY(-1px);
 }
 
 /* ---------- Layout ---------- */
@@ -189,6 +200,34 @@ a {
 .btn-paper {
   background: var(--paper);
   color: var(--ink);
+}
+
+/* ---------- What is AsciiDoc ---------- */
+.def {
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.6rem;
+}
+
+.def p {
+  margin: 0 0 1rem;
+}
+
+.def p:last-child {
+  margin: 0;
+}
+
+.def .ext {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 0.15rem 0.5rem;
+  margin-right: 0.4rem;
 }
 
 /* ---------- Feature cards ---------- */
