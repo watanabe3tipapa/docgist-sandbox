@@ -1,56 +1,138 @@
 = DocGist
 
-DocGist is a content site that introduces and promotes AsciiDoc (.adoc).
-It focuses on the affinity between AsciiDoc and AI agents, explaining why the
-explicit structure of AsciiDoc is well suited to working alongside AI.
+**Documents earn their value by being shared, not hidden.**
 
-.README (Japanese): https://github.com/asciidoctor/docgist-sandbox/blob/main/README.adoc[README.adoc]
+DocGist is a content site for sharing your AsciiDoc (.adoc) documents in a form that is easy to read — for both AI agents and humans. Centered on the affinity between AsciiDoc and AI, it offers a landing page, a tutorial, and a live playground that let you experience why explicit structure matters.
+
+image:https://img.shields.io/badge/License-Apache%202.0-yellow.svg[License: Apache 2.0, window="_blank"]
+image:https://img.shields.io/badge/Version-v0.3.0-blue.svg[Version, window="_blank"]
+image:https://img.shields.io/badge/GitHub%20Pages-live-blue.svg[GitHub Pages, window="_blank"]
+image:https://img.shields.io/badge/Astro-7-purple.svg[Astro, window="_blank"]
+
+日本語 (JP): https://github.com/watanabe3tipapa/docgist-sandbox/blob/main/README.adoc[README.adoc] ·
+English (EN): https://github.com/watanabe3tipapa/docgist-sandbox/blob/main/README.en.adoc[README.en.adoc]
+
+---
 
 == Overview
 
-* Landing page (LP), tutorials and a playground
-* Syntax walkthrough (admonitions, tables, include, and more)
-* A playground with a Monaco editor that converts .adoc to HTML in real time via Asciidoctor
-* Bilingual support: Japanese (ja) and English (en)
+DocGist is an Astro 7 static site that ships two tracks from a single repository: 1) human-readable HTML and 2) a set of .adoc templates to grow along with AI. Documents are treated not as artifacts to publish but as seeds to cultivate with AI — through real-time conversion, a syntax reference, and practical templates — so you can feel how AsciiDoc stays stable as the container for AI output.
 
-== Tech stack
+== Concept (why "DocGist")
 
-* SSG: https://astro.build[Astro] (Node only)
-* .adoc conversion: https://github.com/asciidoctor/asciidoctor.js[Asciidoctor.js] (npm `asciidoctor`)
-* Editor: https://microsoft.github.io/monaco-editor/[Monaco Editor]
-* Design: Neo Brutalism (plain CSS / CSS variables, no framework)
-* i18n: Astro i18n routing
-* Hosting: GitHub Actions → GitHub Pages
+A gist embodies an open-sharing mindset: short fragments shared generously. DocGist extends that spirit to full documents, giving you a toolbox to take your .adoc seeds and grow them into a form readable by both AI and people, then publish them via GitHub Pages.
 
-== Pages
+DocGist covers:
 
-* `/`: LP (Japanese)
-* `/en`: LP (English)
-* `/what-is-asciidoc`: AsciiDoc explanation
-* `/playground`: live conversion playground (left: editor / right: output)
+* A bilingual (ja/en) landing page and tutorial introducing AsciiDoc grammar
+* In-browser real-time conversion with a Monaco editor + Asciidoctor.js
+* An inline live demo on the LP plus a floating ".adoc syntax cheat sheet" island
+* Ready-made .adoc templates: document / spec (PRD) / meeting notes / release notes
+* A guide on how .adoc handles invisible characters (conversion preserves, not quarantines)
+* Automatic build & deploy via GitHub Actions
 
-== Local development
+== Main features
 
-Requires Node.js 22+.
+* AsciiDoc (.adoc) as the source of truth for the site content
+* Node-only workflow: `npm run dev` / `npm run build`
+* Edit .adoc in a Monaco editor → Asciidoctor.js renders HTML in real time
+* "Structure at a glance" live demo on the LP that converts as you type
+* A collapsible floating syntax cheat sheet (island-style UI)
+* Four practical .adoc templates (document / spec / meeting / release notes) + English versions
+* Neo-brutalism design (plain CSS / CSS variables, no framework)
+* ja/en switching via Astro i18n routing
+
+Content notes:
+
+- Conversion is faithful, not quarantine: rendered previews do not sanitize invisible characters
+- Templates are ready to use — just replace the `{{ placeholders }}`
+
+== Prerequisites
+
+|Tool |Required version |Verify with
+|Node.js |>= 22 |`node --version`
+|npm |>= 10 |`npm --version`
+|Git |optional (deploy / contributing) |`git --version`
+
+On macOS, install with `brew install node`. On Windows / Linux, follow the official installation guide.
+
+== Getting started (facts only)
+
+1. Install dependencies:
 
 [source,shell]
 npm install
+
+2. Start the local dev server:
+
+[source,shell]
 npm run dev
 
-Build and preview:
+3. Build and preview:
 
 [source,shell]
 npm run build
 npm run preview
 
-== Deployment
+Sample output:
 
-Pushing to the `main` branch triggers GitHub Actions (`.github/workflows/pages.yml`)
-to build and publish to GitHub Pages.
-It is served under the `base: /docgist-sandbox` path, so asset references are
-resolved through `src/lib/link.ts`.
+- `dist/` — the built static site (HTML/JS/CSS, including `templates/*.adoc`)
+- `dist/templates/` — distributable .adoc templates
+
+== Pages
+
+* `/` — LP (Japanese)
+* `/en` — LP (English)
+* `/what-is-asciidoc` — AsciiDoc explanation (admonitions, tables, include, and more)
+* `/playground` — live conversion playground (left: editor / right: output)
+* `/templates/*.adoc` — downloadable templates (served statically)
+
+== Documentation & learning path
+
+Reading these in order helps you grasp the whole picture:
+
+1. "What is .adoc?" — the basics of an explicitly-structured lightweight markup
+2. "Structure at a glance" — experience real-time conversion in the live demo
+3. "What is AsciiDoc" page — detailed grammar
+4. "Grab a template" — download practical .adoc templates and try them in the Playground
+5. "Invisible characters & .adoc" — security awareness and the normalization principle
+
+== Repository layout (main files & directories)
+
+- `astro.config.mjs` — site configuration (`base: /docgist-sandbox`, i18n)
+- `src/pages/` — LP / explanation / playground (ja and en)
+- `src/components/` — Playground, AsciiDocLiveDemo (live demo + cheat sheet)
+- `src/scripts/playground.ts` — Monaco + Asciidoctor conversion with localStorage persistence
+- `src/lib/` — `asciidoc.ts` (conversion), `link.ts` (base-path resolution)
+- `public/templates/` — distributable .adoc templates (ja / en)
+- `.github/workflows/pages.yml` — GitHub Pages deployment
+- `README.adoc` / `README.en.adoc` — this bilingual README
+
+== Contributing
+
+Contributions are welcome. For larger changes, please open an issue first.
+
+Basic workflow:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add your change'`)
+4. Push the branch and open a Pull Request
+
+See the repository's Issues page for details.
+
+== Contact / public site
+
+- GitHub: https://github.com/watanabe3tipapa/docgist-sandbox
+- Public site (GitHub Pages): https://watanabe3tipapa.github.io/docgist-sandbox/
+
+---
 
 == License
 
-Copyright (C) 2013-2014 Anders Nawroth and the Asciidoctor Project.
-Free use of this software is granted under the terms of the Apache License, Version 2.0.
+Apache License, Version 2.0. See the license information in the repository for details.
+
+== Development & maintenance status
+
+- The repository is not archived.
+- Last updated: 2026-09-11 (based on repository information)

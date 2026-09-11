@@ -1,0 +1,62 @@
+// ==================================================================
+// Meeting Notes Template
+// ==================================================================
+
+= Meeting Notes: {{ Meeting Name }}
+:author: {{ Note taker }}
+:revdate: {{ YYYY-MM-DD }}
+:toc: left
+
+== Meeting Information
+
+.Meeting information
+|===
+| Date / Time | {{ YYYY-MM-DD HH:MM }} - {{ HH:MM }}
+
+| Location
+| {{ Room or online }}
+
+| Attendees
+| {{ Name, Name, Name }}
+
+| Facilitator
+| {{ Name }}
+|===
+
+== Purpose
+
+{{ What this meeting should decide / its goal }}
+
+== Agenda & Decisions
+
+=== {{ Agenda item 1 }}
+
+{{ Summary of the discussion }}
+
+[NOTE]
+====
+Decisions
+====
+
+* {{ Decision }}
+* {{ Next action: owner / due }}
+
+=== {{ Agenda item 2 }}
+
+{{ Summary of the discussion }}
+
+== Open Issues / Next Agenda
+
+* {{ Open issue 1 }}
+* {{ Open issue 2 }}
+
+== Change History
+
+[cols="1,2,4", options="header"]
+|===
+| Date | Author | Changes
+
+| {{ YYYY-MM-DD }}
+| {{ Name }}
+| {{ Initial release }}
+|===

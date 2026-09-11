@@ -1,0 +1,82 @@
+// ==================================================================
+// Generic Document Template
+// Usage:
+//   1. Edit the title and document attributes
+//   2. Add or remove == sections
+//   3. Replace the {{ placeholders }}
+//   NOTE: comment lines starting with // are dropped on conversion
+// ==================================================================
+
+= {{ Document Title }}
+:author: {{ Author }}
+:revnumber: {{ 1.0.0 }}
+:revdate: {{ YYYY-MM-DD }}
+:keywords: {{ keywords,comma,separated }}
+:toc: left
+:sectnums:
+
+[abstract]
+====
+{{ State the purpose of this document in one or two sentences }}.
+Intended readers: {{ reader }}.
+====
+
+== Background
+
+{{ Why you write this document, and any prerequisites }}
+
+== Overview
+
+{{ Summarize the whole picture in one paragraph }}.
+
+* {{ Item 1 }}
+* {{ Item 2 }}
+* {{ Item 3 }}
+
+== Details
+
+=== Subsection 1
+
+{{ Body text }}
+
+TIP: Write supplementary hints as a TIP admonition
+
+=== Subsection 2
+
+{{ Body text }}
+
+[NOTE]
+====
+Write cautions and references as a NOTE block.
+====
+
+== Component Example
+
+// Tables are written CSV-like with |===
+.Table example
+|===
+| Item | Description | Example
+
+| {{ NAME }}
+| {{ Description }}
+| {{ Example }}
+
+| {{ NAME }}
+| {{ Description }}
+| {{ Example }}
+|===
+
+== Summary
+
+{{ Conclusion and next actions }}
+
+== Appendix: Change History
+
+[cols="1,2,4", options="header"]
+|===
+| Version | Date | Changes
+
+| {{ 0.1.0 }}
+| {{ YYYY-MM-DD }}
+| {{ Initial release }}
+|===

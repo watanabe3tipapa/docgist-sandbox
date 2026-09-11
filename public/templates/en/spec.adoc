@@ -1,0 +1,94 @@
+// ==================================================================
+// Feature Spec / PRD Template
+// Explicit structure keeps AI output stable.
+// ==================================================================
+
+= {{ Product Name }} Specification
+:author: {{ Author }}
+:revnumber: {{ 1.0.0 }}
+:revdate: {{ YYYY-MM-DD }}
+:keywords: {{ keywords }}
+:toc: left
+:sectnums:
+
+[abstract]
+====
+{{ The problem this feature solves in one sentence }}.
+====
+
+== Goals / Non-Goals
+
+.Goals
+* {{ Goal 1 }}
+* {{ Goal 2 }}
+
+[NOTE]
+====
+Non-goals explicitly state what we will NOT do this time, to avoid scope creep.
+====
+
+* {{ Non-goal 1 }}
+* {{ Non-goal 2 }}
+
+== User Stories
+
+* As a {{ user type }}, I can {{ action }}, so I get {{ benefit }}.
+
+== Functional Requirements
+
+=== Feature 1: {{ Name }}
+
+==== Overview
+{{ Overview }}
+
+==== Flow
+. {{ Step 1 }}
+. {{ Step 2 }}
+. {{ Step 3 }}
+
+==== Acceptance Criteria
+* [ ] {{ Criterion 1 }}
+* [ ] {{ Criterion 2 }}
+* [ ] {{ Criterion 3 }}
+
+=== Feature 2: {{ Name }}
+
+==== Overview
+{{ Overview }}
+
+==== Edge Cases
+{{ Exceptions and boundary conditions }}
+
+WARNING: Highlight breaking changes or permission issues with WARNING
+
+== Screens (if any)
+
+.Screen list
+|===
+| Screen | From | To
+
+| {{ list }}
+| {{ after login }}
+| {{ detail }}
+|===
+
+== Metrics & Logging
+
+* Event: {{ event name }}
+* Metric: {{ KPI }}
+
+== Release Plan
+
+* v{{ 0.1.0 }}: {{ status }}
+* v{{ 1.0.0 }}: {{ status }}
+
+== Change History
+
+[cols="1,2,4", options="header"]
+|===
+| Version | Date | Changes
+
+| {{ 0.1.0 }}
+| {{ YYYY-MM-DD }}
+| {{ Initial release }}
+|===

@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Playground from "../../components/Playground.astro";
+import AsciiDocLiveDemo from "../../components/AsciiDocLiveDemo.astro";
 import { link } from "../../lib/link";
 import "../../styles/global.css";
 ---
@@ -76,19 +77,64 @@ import "../../styles/global.css";
       Unlike space-sensitive Markdown, AsciiDoc makes <strong>headings,
       admonitions and tables explicit syntax</strong>. AI output stays stable
       through conversion — friendly to both humans and machines.
+      Edit the left pane and watch the converted HTML update in real time.
     </p>
-    <pre class="code"><span class="c">= A doc easy for AI to write</span>
+    <AsciiDocLiveDemo
+      sourceLabel="AsciiDoc source"
+      outputLabel="Converted output"
+      noteTitle="Why Monaco? About this editor"
+      note="It uses the same Monaco Editor as VS Code — full-featured editing with syntax highlighting and completion, right in the browser. Perfect for validating .adoc written by AI."
+      cheatTitle=".adoc syntax cheat sheet"
+      cheatItems={[
+        {
+          name: "Headings",
+          sample: "= Document Title\n== Section\n=== Subsection",
+          desc: "More `=` marks a deeper heading",
+        },
+        {
+          name: "Emphasis",
+          sample: "*bold* and _italic_ and `code`",
+          desc: "Inline styles written in place",
+        },
+        {
+          name: "Lists",
+          sample: "* unordered\n. ordered",
+          desc: "Nest by indenting",
+        },
+        {
+          name: "Admonition",
+          sample: "[NOTE]\n====\nImportant info here\n====",
+          desc: "NOTE / TIP / WARNING / IMPORTANT / CAUTION",
+        },
+        {
+          name: "Table",
+          sample: "|===\n|A |B\n\n|1 |2\n|===",
+          desc: "CSV-like table syntax",
+        },
+        {
+          name: "Code block",
+          sample: "[source,js]\n----\nconsole.log('hi')\n----",
+          desc: "Language-tagged with highlighting",
+        },
+        {
+          name: "Link",
+          sample: "https://asciidoctor.org is a reference",
+          desc: "URLs become links automatically",
+        },
+      ]}
+      sample={`= A doc easy for AI to write
 
-<span class="s">Because structure is explicit, AI reliably produces valid AsciiDoc.</span>
+Because structure is explicit, AI reliably produces valid AsciiDoc.
 
-<span class="c">[NOTE]</span>
+[NOTE]
 AI agents output into .adoc structure smoothly.
 
-<span class="c">== Explicit headings</span>
+== Explicit headings
 
-<span class="c">[source,bash]</span>
+[source,bash]
 $ asciidoctor my-doc.adoc
-<span class="k">DONE</span></pre>
+`}
+    />
   </section>
 
   <section class="wrap section">
@@ -153,6 +199,116 @@ $ asciidoctor my-doc.adoc
         </tr>
       </tbody>
     </table>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">Invisible characters & .adoc</h2>
+    <p style="max-width: 44rem">
+      .adoc treats <strong>invisible characters</strong> (non-printing Unicode codepoints)
+      as literal content. Asciidoctor keeps them in the converted HTML, which can be
+      abused for technical tampering: text that <em>looks safe</em> but secretly contains
+      something else (hidden instructions, altered identifiers, spoofed URLs).
+    </p>
+
+    <div class="def">
+      <p>
+        The most common invisible characters are listed below. They are nearly invisible
+        in an editor, but fully visible to programs:
+      </p>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Codepoint</th>
+          <th>Name</th>
+          <th>Abuse example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">U+200B</td>
+          <td>Zero-width space (ZWS)</td>
+          <td>Split names, URLs or code without changing how it looks</td>
+        </tr>
+        <tr>
+          <td class="mono">U+200C / U+200D</td>
+          <td>ZWNJ / ZWJ</td>
+          <td>Bypass string matching with near-identical text</td>
+        </tr>
+        <tr>
+          <td class="mono">U+202E etc.</td>
+          <td>Bidi override (RLO etc.)</td>
+          <td>Flip display order to disguise strings, filenames and URLs</td>
+        </tr>
+        <tr>
+          <td class="mono">U+FEFF</td>
+          <td>BOM / ZW non-breaking space</td>
+          <td>Hiding at the start to break checks and comparisons</td>
+        </tr>
+        <tr>
+          <td class="mono">U+2060</td>
+          <td>Word joiner (WJ)</td>
+          <td>Spoofing line-break and layout behavior</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="def">
+      <p>
+        <strong>Principle</strong>: conversion is <em>faithful preservation</em>, not
+        quarantine. When adopting an untrusted .adoc, run an
+        <span class="mono">invisible-character scan</span> and
+        <span class="mono">normalization</span> first (e.g. detect/remove
+        <code>[\u200B-\u200D\u2060\uFEFF\u202A-\u202E]</code>).
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">Grab a template</h2>
+    <p style="max-width: 44rem">
+      Ready-to-use .adoc templates — just replace the
+      <code>&#123;&#123; placeholders &#125;&#125;</code>.
+      When you ask AI to write, keeping this structure keeps the output stable.
+    </p>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">📄</div>
+        <h3>Generic document</h3>
+        <p>Classic background / overview / details / summary structure. Great for notes and docs.</p>
+        <p class="card-actions">
+          <a class="btn btn-accent" href={link("/templates/en/document.adoc")} download>Get the .adoc</a>
+        </p>
+      </div>
+      <div class="card">
+        <div class="icon">🧩</div>
+        <h3>Feature spec / PRD</h3>
+        <p>Goals, user stories and acceptance criteria — ideal for spec work with AI.</p>
+        <p class="card-actions">
+          <a class="btn btn-accent" href={link("/templates/en/spec.adoc")} download>Get the .adoc</a>
+        </p>
+      </div>
+      <div class="card">
+        <div class="icon">📝</div>
+        <h3>Meeting notes</h3>
+        <p>Date, attendees, agenda, decisions and follow-ups in clean tables and notes.</p>
+        <p class="card-actions">
+          <a class="btn btn-accent" href={link("/templates/en/meeting-notes.adoc")} download>Get the .adoc</a>
+        </p>
+      </div>
+      <div class="card">
+        <div class="icon">🚀</div>
+        <h3>Release notes</h3>
+        <p>New features, changes and known issues — readable by customers and AI alike.</p>
+        <p class="card-actions">
+          <a class="btn btn-accent" href={link("/templates/en/release-notes.adoc")} download>Get the .adoc</a>
+        </p>
+      </div>
+    </div>
+    <p style="margin-top: 1.4rem; font-size: 0.9rem; color: #555">
+      Tip: paste the template into the Playground to preview its output before you publish. <a href={link("/playground")}>Open the Playground →</a>
+    </p>
   </section>
 
   <section class="wrap section">

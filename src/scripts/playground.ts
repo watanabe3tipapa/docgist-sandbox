@@ -44,22 +44,29 @@ interface InitOptions {
   editor: string;
   output: string;
   error: string;
-  copyBtn: string;
-  clearBtn: string;
+  copyBtn?: string;
+  clearBtn?: string;
+  storageKey?: string;
+  initialValue?: string;
 }
 
 export function mountPlayground(props: InitOptions): void {
   const editorEl = document.getElementById(props.editor);
   const outputEl = document.getElementById(props.output);
   const errorEl = document.getElementById(props.error);
-  const copyBtn = document.getElementById(props.copyBtn) as HTMLButtonElement;
-  const clearBtn = document.getElementById(props.clearBtn) as HTMLButtonElement;
-  if (!editorEl || !outputEl || !errorEl || !copyBtn || !clearBtn) return;
+  const copyBtn = props.copyBtn
+    ? (document.getElementById(props.copyBtn) as HTMLButtonElement | null)
+    : null;
+  const clearBtn = props.clearBtn
+    ? (document.getElementById(props.clearBtn) as HTMLButtonElement | null)
+    : null;
+  if (!editorEl || !outputEl || !errorEl) return;
 
-  const copiedLabel = copyBtn.dataset.copiedLabel ?? "Copied!";
+  const storageKey = props.storageKey ?? STORAGE_KEY;
+  const copiedLabel = copyBtn?.dataset.copiedLabel ?? "Copied!";
 
-  const saved = localStorage.getItem(STORAGE_KEY);
-  const initial = saved ?? sampleSource.trim();
+  const saved = localStorage.getItem(storageKey);
+  const initial = saved ?? props.initialValue ?? sampleSource.trim();
 
   const instance = monaco.editor.create(editorEl, {
     value: initial,
@@ -74,7 +81,7 @@ export function mountPlayground(props: InitOptions): void {
 
   async function render(): Promise<void> {
     const source = instance.getValue();
-    localStorage.setItem(STORAGE_KEY, source);
+    localStorage.setItem(storageKey, source);
     errorEl.textContent = "";
     try {
       const html = await adocToHtml(source);
@@ -91,14 +98,14 @@ export function mountPlayground(props: InitOptions): void {
     debounce = window.setTimeout(() => void render(), 250);
   });
 
-  copyBtn.addEventListener("click", () => {
+  copyBtn?.addEventListener("click", () => {
     void navigator.clipboard.writeText(instance.getValue());
     const original = copyBtn.textContent;
     copyBtn.textContent = copiedLabel;
     window.setTimeout(() => (copyBtn.textContent = original), 1200);
   });
 
-  clearBtn.addEventListener("click", () => {
+  clearBtn?.addEventListener("click", () => {
     instance.setValue("");
     instance.focus();
   });

@@ -1,0 +1,275 @@
+---
+interface CheatItem {
+  name: string;
+  sample: string;
+  desc: string;
+}
+
+interface Props {
+  sourceLabel: string;
+  outputLabel: string;
+  note: string;
+  noteTitle: string;
+  sample: string;
+  cheatTitle: string;
+  cheatItems: CheatItem[];
+}
+
+const { sourceLabel, outputLabel, note, noteTitle, sample, cheatTitle, cheatItems } =
+  Astro.props;
+---
+
+<section class="live-demo" data-initial={sample}>
+  <div class="live-demo-head">
+    <p class="live-demo-note">
+      <span class="note-arrow" aria-hidden="true">▲</span>
+      <span class="note-title">{noteTitle}</span>
+      {note}
+    </p>
+  </div>
+
+  <div class="live-demo-panes">
+    <div class="live-demo-pane">
+      <div class="live-label">{sourceLabel}</div>
+      <div id="dem-editor" class="live-editor"></div>
+    </div>
+    <div class="live-demo-pane">
+      <div class="live-label">{outputLabel}</div>
+      <div id="dem-output" class="pane-output live-output"></div>
+      <div id="dem-error" class="live-error" role="alert"></div>
+    </div>
+  </div>
+
+  <button
+    class="cheat-toggle"
+    aria-expanded="false"
+    aria-controls="cheat-card"
+  >📖 {cheatTitle}</button>
+  <div class="cheat-card" id="cheat-card" hidden>
+    <ul>
+      {
+        cheatItems.map((item) => (
+          <li>
+            <span class="cheat-name">{item.name}</span>
+            <code class="cheat-sample" dir="auto">{item.sample}</code>
+            <span class="cheat-desc">{item.desc}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  import { mountPlayground } from "../scripts/playground";
+
+  const root = document.querySelector(".live-demo");
+  const initialSample =
+    root?.getAttribute("data-initial") ?? `= AI に書かせやすい文章
+
+AsciiDoc は構造が明示的, AI が書いても安定して変換されます。
+
+[NOTE]
+生成 AI は .adoc の構造構文へ安定して出力できます。`;
+
+  mountPlayground({
+    editor: "dem-editor",
+    output: "dem-output",
+    error: "dem-error",
+    storageKey: "docgist-structure-source",
+    initialValue: initialSample,
+  });
+
+  const toggle = document.querySelector(".cheat-toggle");
+  const card = document.getElementById("cheat-card");
+  toggle?.addEventListener("click", () => {
+    const open = card?.hasAttribute("hidden") ?? false;
+    if (card) card.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+</script>
+
+<style>
+  .live-demo {
+    position: relative;
+    margin-top: 1.4rem;
+  }
+
+  .live-demo-head {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.75rem;
+  }
+
+  .live-demo-note {
+    position: relative;
+    max-width: 26rem;
+    margin: 0;
+    padding: 0.7rem 0.9rem;
+    background: var(--gold);
+    border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.55;
+  }
+
+  .note-title {
+    display: block;
+    font-weight: 900;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.2rem;
+  }
+
+  .note-arrow {
+    position: absolute;
+    right: 3.2rem;
+    bottom: -0.5rem;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .live-demo-panes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  @media (max-width: 760px) {
+    .live-demo-panes {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .live-demo-pane {
+    display: flex;
+    flex-direction: column;
+    min-height: 320px;
+  }
+
+  .live-label {
+    align-self: flex-start;
+    font-weight: 800;
+    padding: 0.35rem 0.7rem;
+    background: var(--ink);
+    color: #fff;
+    border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .live-editor {
+    flex: 1;
+    min-height: 300px;
+    border: 3px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+
+  .live-output {
+    flex: 1;
+    min-height: 300px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+    padding: 0.8rem;
+    overflow-y: auto;
+    font-size: 0.9rem;
+  }
+
+  .live-error {
+    color: var(--accent);
+    font-weight: 700;
+    margin-top: 0.4rem;
+  }
+
+  /* ---------- Cheat sheet (floating island) ---------- */
+  .cheat-toggle {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 5;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 0.82rem;
+    color: #fff;
+    background: var(--ink);
+    border: 3px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--accent);
+    padding: 0.4rem 0.8rem;
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+  }
+
+  .cheat-toggle::after {
+    content: " ▼";
+    font-size: 0.7rem;
+  }
+
+  .cheat-toggle[aria-expanded="true"]::after {
+    content: " ▲";
+  }
+
+  .cheat-toggle:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--accent);
+  }
+
+  .cheat-card {
+    position: absolute;
+    right: 1rem;
+    bottom: 3.1rem;
+    z-index: 6;
+    width: 300px;
+    max-height: 360px;
+    overflow-y: auto;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    padding: 0.8rem 0.9rem;
+    font-size: 0.82rem;
+  }
+
+  .cheat-card[hidden] {
+    display: none;
+  }
+
+  .cheat-card ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .cheat-card li {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .cheat-name {
+    font-weight: 800;
+  }
+
+  .cheat-sample {
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: #1a1a1a;
+    color: #e6e6e6;
+    padding: 0.25rem 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .cheat-desc {
+    color: #555;
+  }
+
+  @media (max-width: 1200px) {
+    .cheat-card {
+      width: 260px;
+    }
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Playground from "../components/Playground.astro";
+import AsciiDocLiveDemo from "../components/AsciiDocLiveDemo.astro";
 import { link } from "../lib/link";
 import "../styles/global.css";
 ---
@@ -72,19 +73,64 @@ import "../styles/global.css";
     <p style="max-width: 44rem">
       AsciiDoc は余白依存の Markdown と違い、<strong>見出し・アドモニション・テーブルが構文として明示的</strong>です。
       そのため AI が出力した文章も安定して変換され、人と機械の両方に優しい文書になります。
+      左のエディタを書き換えると、変換結果がリアルタイムに変わります。
     </p>
-    <pre class="code"><span class="c">= AI に書かせやすい文章</span>
+    <AsciiDocLiveDemo
+      sourceLabel="AsciiDoc ソース"
+      outputLabel="変換結果"
+      noteTitle="Why Monaco? このエディタについて"
+      note="VS Code と同じ Monaco Editor を採用しています。シンタックスハイライト・補完など本格的な編集体験をブラウザでそのまま再現でき、AI が書いた .adoc の検証にも最適です。"
+      cheatTitle=".adoc 記法チートシート"
+      cheatItems={[
+        {
+          name: "見出し",
+          sample: "= 文書タイトル\n== セクション\n=== サブセクション",
+          desc: "`=` が多いほど下位の見出し",
+        },
+        {
+          name: "強調",
+          sample: "*太字* と _強調_ と `等幅`",
+          desc: "インラインでそのまま書ける",
+        },
+        {
+          name: "リスト",
+          sample: "* 箇条書き\n. 番号付き",
+          desc: "入れ子はインデントで表現",
+        },
+        {
+          name: "アドモニション",
+          sample: "[NOTE]\n====\n注意・補足はここ\n====",
+          desc: "NOTE / TIP / WARNING / IMPORTANT / CAUTION",
+        },
+        {
+          name: "テーブル",
+          sample: "|===\n|A |B\n\n|1 |2\n|===",
+          desc: "CSV ライクで書ける",
+        },
+        {
+          name: "コードブロック",
+          sample: "[source,js]\n----\nconsole.log('hi')\n----",
+          desc: "言語付きでシンタックスハイライト",
+        },
+        {
+          name: "リンク",
+          sample: "https://asciidoctor.org は参考書",
+          desc: "URL もメールアドレスもそのままリンクになる",
+        },
+      ]}
+      sample={`= AI に書かせやすい文章
 
-<span class="s">AsciiDoc は構造が明示的, AI が書いても安定して変換されます。</span>
+AsciiDoc は構造が明示的, AI が書いても安定して変換されます。
 
-<span class="c">[NOTE]</span>
+[NOTE]
 生成 AI は .adoc の構造構文へ安定して出力できます。
 
-<span class="c">== 見出しも明示的</span>
+== 見出しも明示的
 
-<span class="c">[source,bash]</span>
+[source,bash]
 $ asciidoctor my-doc.adoc
-<span class="k">DONE</span></pre>
+`}
+    />
   </section>
 
   <section class="wrap section">
@@ -149,6 +195,110 @@ $ asciidoctor my-doc.adoc
         </tr>
       </tbody>
     </table>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">不可視文字と .adoc</h2>
+    <p style="max-width: 44rem">
+      .adoc は表示に影響しない「不可視文字」をそのまま本文として扱います。
+      Asciidoctor による変換後も消えずに HTML へ残るため、見た目と中身の不一致(<strong>見た目は安全、実体は別の指示</strong>)を生み出すテクニカルな改ざんに使えます。
+    </p>
+
+    <div class="def">
+      <p>
+        <strong>主な不可視文字</strong>は次の通りです。どこに埋め込まれていても、テキストエディタの画面では
+        ほぼ見えません(プログラムには見えています)。
+      </p>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>コードポイント</th>
+          <th>名称</th>
+          <th>悪用例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">U+200B</td>
+          <td>ゼロ幅スペース (ZWS)</td>
+          <td>コード・関数名・URL へ混入し、見た目を変えずテキストを分断</td>
+        </tr>
+        <tr>
+          <td class="mono">U+200C / U+200D</td>
+          <td>ZWNJ / ZWJ</td>
+          <td>文字列の照合をすり抜けさせる改ざん</td>
+        </tr>
+        <tr>
+          <td class="mono">U+202E ほか</td>
+          <td>双方向制御 (RLO 等)</td>
+          <td>表示順を逆転させ、文字列・ファイル名・URL を偽装</td>
+        </tr>
+        <tr>
+          <td class="mono">U+FEFF</td>
+          <td>BOM / ゼロ幅ノーブレーク</td>
+          <td>先頭に混入させ構文チェックや比較を妨害</td>
+        </tr>
+        <tr>
+          <td class="mono">U+2060</td>
+          <td>ワードジョイナー (WJ)</td>
+          <td>改行位置等を偽装</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="def">
+      <p>
+        <strong>対策の原則</strong>: 変換は「入力の忠実保持」であって検疫・検証ではありません。
+        信頼できない .adoc を採用するときは、<span class="mono">不可視文字の走査</span>と<span class="mono">正規化</span>(例: <code>[\u200B-\u200D\u2060\uFEFF\u202A-\u202E]</code> を検出・除去)を行ってから利用してください。
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="section-title">テンプレートを入手</h2>
+    <p style="max-width: 44rem">
+      書き換えるだけで使える .adoc テンプレートです。(<code>&#123;&#123; プレースホルダ &#125;&#125;</code> を置き換え)
+      AI に書かせるときも、この構造を保つだけで出力が安定します。
+    </p>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">📄</div>
+        <h3>汎用ドキュメント</h3>
+        <p>背景・概要・詳細・まとめの定番構成。議事録や導入資料にも。</p>
+        <p class="card-actions">
+          <a class="btn btn-accent" href={link("/templates/document.adoc")} download>.adoc を入手</a>
+        </p>
+      </div>
+      <div class="card">
+        <div class="icon">🧩</div>
+        <h3>機能仕様書 / PRD</h3>
+        <p>ゴール・ユーザーストーリー・受け入れ条件まで、AI との仕様検討に最適。</p>
+        <p class="card-actions">
+          <a class="btn btn-accent" href={link("/templates/spec.adoc")} download>.adoc を入手</a>
+        </p>
+      </div>
+      <div class="card">
+        <div class="icon">📝</div>
+        <h3>議事録</h3>
+        <p>日時・参加者・アジェンダ・決定事項・残課題をテーブルと NOTE で整理。</p>
+        <p class="card-actions">
+          <a class="btn btn-accent" href={link("/templates/meeting-notes.adoc")} download>.adoc を入手</a>
+        </p>
+      </div>
+      <div class="card">
+        <div class="icon">🚀</div>
+        <h3>リリースノート</h3>
+        <p>新機能・変更・既知の問題を顧客にも AI にも読みやすく。</p>
+        <p class="card-actions">
+          <a class="btn btn-accent" href={link("/templates/release-notes.adoc")} download>.adoc を入手</a>
+        </p>
+      </div>
+    </div>
+    <p style="margin-top: 1.4rem; font-size: 0.9rem; color: #555">
+      ※ 入手した .adoc は Playground に貼ればすぐ変換結果を確認できます。<a href={link("/playground")}>Playground を開く →</a>
+    </p>
   </section>
 
   <section class="wrap section">

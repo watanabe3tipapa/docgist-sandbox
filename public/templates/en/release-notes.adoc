@@ -1,0 +1,52 @@
+// ==================================================================
+// Release Notes Template
+// ==================================================================
+
+= Release Notes {{ Version }}
+:author: {{ Author }}
+:revdate: {{ YYYY-MM-DD }}
+:toc: left
+
+== Summary
+
+{{ One-sentence summary }} (version {{ 1.0.0 }}, released {{ YYYY-MM-DD }})
+
+== New Features
+
+=== {{ Feature 1 }}
+
+{{ Description }}
+
+[source,asciidoc]
+----
+// usage example
+----
+
+=== {{ Feature 2 }}
+
+{{ Description }}
+
+== Changes
+
+* {{ Change }} ({{ issue / PR # }})
+* {{ Change }} ({{ issue / PR # }})
+
+== Bug Fixes
+
+* {{ Fix }} ({{ issue # }})
+* {{ Fix }} ({{ issue # }})
+
+== Known Issues
+
+WARNING: {{ Known issue }}
+
+== Compatibility & Migration
+
+[IMPORTANT]
+====
+{{ Migration steps / compatibility notes }}
+====
+
+== Support
+
+{{ Contact / bug report URL }}
