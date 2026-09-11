@@ -80,27 +80,36 @@ a {
 .lang-switch {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  background: transparent;
-  color: #fff;
   border: 2px solid var(--gold);
   border-radius: 999px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 0.8rem;
-  line-height: 1;
+  overflow: hidden;
+}
+
+.lang-switch a {
   padding: 0.35rem 0.75rem;
-  transition: background 0.12s ease, color 0.12s ease, transform 0.08s ease;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.12s ease, color 0.12s ease;
 }
 
-.lang-switch svg {
-  flex: 0 0 auto;
+.lang-switch a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--gold);
 }
 
-.lang-switch:hover {
+.lang-switch a.current {
   background: var(--gold);
   color: var(--ink);
-  transform: translateY(-1px);
+}
+
+.lang-switch-sep {
+  width: 2px;
+  align-self: stretch;
+  background: var(--gold);
+  flex: 0 0 auto;
 }
 
 /* ---------- Layout ---------- */
